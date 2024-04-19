@@ -1,1 +1,6 @@
-ADMIN user: pepe  pass: 123456
+ADMIN user: pepe  pass: 123
+MEDICO
+perez juan 100100
+
+PACIENTE
+Rosa Garcia 123
