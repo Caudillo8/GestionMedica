@@ -1,0 +1,3 @@
+-ver un login master de donde salen los permisos con tooodas las 
+cookies en vez de un login por cada clase de usuario
+-agregarle <form action method post> a lo que falta
