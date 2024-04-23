@@ -12,42 +12,59 @@ include('conexion.php');
 <body>
     <!---MEDICOS------------------------------- --->
     <h2>MEDICOS</h2>
-    <input type="text">
-    <input type="submit" name="BUSCAR" value="BUSCAR">
-    <h3>AGREGAR</h3>
-    <h3>MODIFICAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
-    <h3>ELIMININAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
-    <!---PACIENTES--------------------------------->
-    <h2>PACIENTES</h2>
-    <input type="text">
-    <input type="submit" name="BUSCAR" value="BUSCAR">
-    <h3>AGREGAR</h3>
-    <h3>MODIFICAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
-    <h3>ELIMININAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
-    <!---TURNOS-------------------------------->
-    <h2>TURNOS</h2>
-    <input type="text">
-    <input type="submit" name="BUSCAR" value="BUSCAR">
-    <h3>AGREGAR</h3>
-    <h3>MODIFICAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
-    <h3>ELIMININAR</h3>
-    <form action="" method="post">
-        <select></select>
-    </form>
+    <br><strong>Búsqueda por lista:</strong>
+    <form action="" method="post" >
+        <select name="select_medico">
+            <?php
+                $query = "SELECT * FROM medicos WHERE 1 ;" ;
+                $resultado = mysqli_query ($conexion , $query);
+                if (! $resultado){
+                    echo "ERROR CONSULTA";
+                    exit;
+                }
+            ?>
+            <?php while ($fila = mysqli_fetch_assoc($resultado) ){?> 
+                <option value="<?= $fila['id'] ?>" name="buscar_medico" method="post">
+                    <?= $fila['apellido'] ?>   <?= $fila['nombre'] ?>    
+                </option>
+            <?php } ?>
+        </select>
+        <input type="submit" name="boton_buscar_medico" value="DATOS">
+   
+    <?php
+        if(isset($_POST['boton_buscar_medico'])){
+            $id_medico= $_POST['select_medico'];
+            echo '<br>ID :'.$id_medico.'<br>';
+            $query_datos_medico = "SELECT * from medicos WHERE id = '$id_medico';";
+            $resultado_medico = mysqli_query($conexion, $query_datos_medico);
+            $dato_medico = mysqli_fetch_assoc($resultado_medico);
+            echo'NRO CATEGORIA  :'.$dato_medico['fk_categoria'];
+            $fk_medico_categoria = $dato_medico['fk_categoria'];
+            $query_categoria_medico = "SELECT nombre FROM categorias WHERE id = '$fk_medico_categoria';";
+            $resultado_categoria_medico = mysqli_query($conexion, $query_categoria_medico);
+            $dato_categoria_medico = mysqli_fetch_assoc($resultado_categoria_medico);
+            echo'<br>ESPECIALIDAD :'.$dato_categoria_medico['nombre'];
+            echo'<br>MATRÍCULA :'.$dato_medico['matricula'];
+            echo'<br> DNI :'.$dato_medico['dni'];
+            echo'<br> MAIL :'.$dato_medico['mail'];
+            echo'<br> TELEFONO :'.$dato_medico['telefono'];
+
+        }
+        
+
+    ?>
+     </form>
+    <!--------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
