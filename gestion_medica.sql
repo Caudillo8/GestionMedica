@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3307
--- Tiempo de generación: 16-04-2024 a las 01:07:50
+-- Tiempo de generación: 19-04-2024 a las 23:45:42
 -- Versión del servidor: 10.4.18-MariaDB
 -- Versión de PHP: 7.4.16
 
@@ -28,9 +28,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `admin` (
-  `id` int(6) UNSIGNED NOT NULL,
+  `id` varchar(30) NOT NULL,
   `usuario` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `admin`
+--
+
+INSERT INTO `admin` (`id`, `usuario`) VALUES
+('f72ee99f06de30e623f290499925ec', 'pepe');
 
 -- --------------------------------------------------------
 
@@ -42,6 +49,17 @@ CREATE TABLE `categorias` (
   `id` int(10) UNSIGNED NOT NULL,
   `nombre` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `categorias`
+--
+
+INSERT INTO `categorias` (`id`, `nombre`) VALUES
+(1, 'clinica'),
+(2, 'cardiologia'),
+(5, 'oftalmologia'),
+(7, 'laboratorio'),
+(8, 'odontologia');
 
 -- --------------------------------------------------------
 
@@ -65,8 +83,20 @@ CREATE TABLE `diagnosticos` (
 CREATE TABLE `medicos` (
   `id` int(6) UNSIGNED NOT NULL,
   `nombre` varchar(30) NOT NULL,
-  `fk_categoria` int(10) UNSIGNED NOT NULL
+  `fk_categoria` int(10) UNSIGNED NOT NULL,
+  `matricula` varchar(20) NOT NULL,
+  `dni` int(8) NOT NULL,
+  `mail` varchar(30) DEFAULT NULL,
+  `telefono` int(10) DEFAULT NULL,
+  `pass` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `medicos`
+--
+
+INSERT INTO `medicos` (`id`, `nombre`, `fk_categoria`, `matricula`, `dni`, `mail`, `telefono`, `pass`) VALUES
+(2, 'Perez Juan', 1, '45.678', 12123456, 'perez@gmail.com', 1144556677, 'b9c93fbdfd2a30504e05d3b0b32307');
 
 -- --------------------------------------------------------
 
@@ -76,8 +106,19 @@ CREATE TABLE `medicos` (
 
 CREATE TABLE `pacientes` (
   `id` int(11) UNSIGNED NOT NULL,
-  `nombre` int(11) NOT NULL
+  `nombre` varchar(30) NOT NULL,
+  `telefono` int(10) DEFAULT NULL,
+  `mail` varchar(40) DEFAULT NULL,
+  `dni` int(8) NOT NULL,
+  `pass` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Volcado de datos para la tabla `pacientes`
+--
+
+INSERT INTO `pacientes` (`id`, `nombre`, `telefono`, `mail`, `dni`, `pass`) VALUES
+(1, 'Rosa Garcia', 1156564545, 'r_garcia@gmail.com', 4563789, '202cb962ac59075b964b07152d234b');
 
 -- --------------------------------------------------------
 
@@ -88,7 +129,8 @@ CREATE TABLE `pacientes` (
 CREATE TABLE `turnos` (
   `numero` int(3) NOT NULL,
   `turno_medico` int(6) UNSIGNED NOT NULL,
-  `turno_paciente` int(3) UNSIGNED NOT NULL
+  `turno_paciente` int(3) UNSIGNED NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -144,7 +186,7 @@ ALTER TABLE `turnos`
 -- AUTO_INCREMENT de la tabla `categorias`
 --
 ALTER TABLE `categorias`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `diagnosticos`
@@ -156,13 +198,13 @@ ALTER TABLE `diagnosticos`
 -- AUTO_INCREMENT de la tabla `medicos`
 --
 ALTER TABLE `medicos`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `pacientes`
 --
 ALTER TABLE `pacientes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `turnos`
